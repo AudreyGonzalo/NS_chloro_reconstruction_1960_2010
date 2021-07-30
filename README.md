@@ -86,3 +86,9 @@ The methods performances are not all equivalent. You may find below a brief summ
 
 ![shift](/figures/variables_strength_assessment.PNG)
 
+## To go further
+### Zooplankton
+As the currents models were not fully able to detect and reconstruct the shift, it is interesting to wonder whether the current environmental parameters are sufficinent to explain by themselves this change. Thus adding the zooplankton (which is the natural direct predator of phytplantkon) among the predictors is interesting to compare the results. This has been tested in the notebook `zooplankton`.
+
+### Symmetric reconstruction
+In the frame of our study, we decided to train on the period priori to the shift. Another interesting approach might be to train the network on the post to the shift, and compare the reconstructions. In particular, this would answer the question whether the physical mecanisms accountable for the phytoplankton evolution are the same before and after.
