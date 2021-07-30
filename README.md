@@ -83,3 +83,6 @@ The methods performances are not all equivalent. You may find below a brief summ
 
 
 ### Variables strenght assessment
+
+![shift](/figures/variables_strength_assessment.PNG)
+
