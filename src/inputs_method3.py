@@ -88,7 +88,7 @@ def inputs_3(directory, dt_horizon):
              label='Chl CPR,stand on P1 (train)')
     mean_train = np.mean(inp_train[:, 0, 0])
 
-    time_years_train[:-dt_horizon]
+    #time_years_train[:-dt_horizon]
     inp_train = torch.Tensor(inp_train).view(inp_train.shape[0], -1)
     inp_true_train = torch.Tensor(inp_true_train).view(inp_train.shape[0], -1)
 
@@ -106,7 +106,7 @@ def inputs_3(directory, dt_horizon):
     plt.plot(time_years_test[:-2 * dt_horizon], inp_test[:, 0, 0], color='deeppink', label='Chl CPR,stand on P2 (test)')
     mean_test = np.mean(inp_test[:, 0, 0])
 
-    time_years_test[:-dt_horizon]
+    #time_years_test[:-dt_horizon]
     inp_test = torch.Tensor(inp_test).view(inp_test.shape[0], -1)
     inp_true_test = torch.Tensor(inp_true_test).view(inp_test.shape[0], -1)
 

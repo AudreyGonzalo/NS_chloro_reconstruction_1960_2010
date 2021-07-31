@@ -56,12 +56,12 @@ def var_stand(directory):
     wind_stand_P1   = (wind_NS - np.mean(wind_NS[:idx1980])) / np.std(wind_NS[:idx1980])
 
     ## CONCATENATION
-    co_var = np.column_stack((NAO_stand, MLD_stand))
-    co_var = np.column_stack((co_var, SST_stand))
-    co_var = np.column_stack((co_var, wind_stand))
-    co_var = np.column_stack((co_var, AMO_stand))
+    co_var = np.column_stack((NAO_stand_P1, MLD_stand_P1))
+    co_var = np.column_stack((co_var, SST_stand_P1))
+    co_var = np.column_stack((co_var, wind_stand_P1))
+    co_var = np.column_stack((co_var, AMO_stand_P1))
     co_var = co_var.reshape(-1, 5)
-    input = np.column_stack((chl_stand, co_var))
+    input = np.column_stack((chloro_stand_P1, co_var))
 
     inp_true_test = input[idx1981 + 1:].reshape(-1, input.shape[1])
 
@@ -140,7 +140,7 @@ def inputs_rdn_3(time_years, chl_stand, NAO_stand, MLD_stand, SST_stand, wind_st
     dt_horizon = params['dt_horizon']
 
     ## TEST SPLIT
-    inp_test = np.zeros([len(time_years_test) - 2 * dt_horizon, dt_horizon, input.shape[1]])
+    inp_test = np.zeros([len(time_years[idx1981:]) - 2 * dt_horizon, dt_horizon, input.shape[1]])
     inp_true_test = np.zeros([inp_test.shape[0], dt_horizon, input.shape[1]])
     for i in range(len(inp_test)):
         inp_test[i] = input[idx1981 + i: idx1981 + i + dt_horizon]
