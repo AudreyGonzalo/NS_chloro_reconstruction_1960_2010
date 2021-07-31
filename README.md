@@ -23,7 +23,14 @@ This repository is oragnized as follows :
         * The assessment of the variables' strenght in each of the `baseline` models.
         * The obtained results when zooplankton is added to the physical predictors.  
 * The `models` folder, with the weights of each different type of model saved from their respective notebook in `basline`.
-* The `src` folder, containing all the python codes for data formating automation for each type of model, as well as for the graphic content generation. 
+* The `src` folder, containing all the python codes for data formating automation for each type of model, as well as for the graphic content generation. More precisely, the plots are generated using the `Matplotlib` python library, and time series reconstructions can be parameterized directly inside the notebook. The user can choose:
+    * The [line colors](https://matplotlib.org/stable/gallery/color/named_colors.html)
+    * The [line sytles](https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html)
+    * The [markers](https://matplotlib.org/stable/api/markers_api.html)
+    * The line widths
+    * The labels
+    * The title of the graph and of the axes
+    * The figure size and the legend size
 * And finally, the `figures` folder in which you may find all the schemes from the notebooks and other figures from the `README.md` file.
 
 You may run the notebooks on Google Colaboratory in the following order :
