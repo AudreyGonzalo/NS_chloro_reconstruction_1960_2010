@@ -9,21 +9,28 @@ This repository adresses the reconstruction of the North Sea chlorophyll (a phyt
 
 ![shift](/figures/Martinez_et_al_shift.PNG)
 
-More specifically, the challenge tackled with this dataset is to train an AI to **predict the biological shift**, by detecting a long-term change in the phyics as of the 1980's. Concretely, it boils down to training the neural network only on the period prior to the shift (P1), the rest being the test set (P2). The two sets are considered as independant by imposing a ceasure of one year between them. 
+Thus, more specifically, the challenge tackled here is to train an AI to **predict the biological shift**, by detecting a long-term change in the phyics as of the 1980's. Concretely, it boils down to training the neural network only on the period prior to the shift (P1), the rest being used as the test set (P2). The two sets are considered as independant by imposing a ceasure of one year between them both. 
 
 ![shift](/figures/timeline.PNG)
 
 ### Repository structure
 This repository is oragnized as follows : 
-* In the `data` folder, you may find all the datasets, with format `netCDF`.
+* In the `data` folder, you may find all the datasets, in `netCDF` format.
 * The `notebooks` folder gathers :
     * A brief vizualization of the data, and its formatting process.
     * The tested approaches (or methods) from `baseline`.
-    * Complementary results such as :_
+    * Complementary results such as :
         * The assessment of the variables' strenght in each of the `baseline` models.
-        * The impact of zooplankton when it is added to the physical predictors.  
+        * The obtained results when zooplankton is added to the physical predictors.  
 * The `models` folder, with the weights of each different type of model saved from their respective notebook in `basline`.
-* The `src` folder contains all the python codes for data formating automation for each type of model, and is also accountable for the graphic content generation. 
+* The `src` folder, containing all the python codes for data formating automation for each type of model, as well as for the graphic content generation. More precisely, the plots are generated using the `Matplotlib` python library, and time series reconstructions can be parameterized directly inside the notebook. The user can choose:
+    * The [line colors](https://matplotlib.org/stable/gallery/color/named_colors.html)
+    * The [line sytles](https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html)
+    * The [markers](https://matplotlib.org/stable/api/markers_api.html)
+    * The line widths
+    * The labels
+    * The title of the graph and of the axes
+    * The figure size and the legend size
 * And finally, the `figures` folder in which you may find all the schemes from the notebooks and other figures from the `README.md` file.
 
 You may run the notebooks on Google Colaboratory in the following order :
@@ -47,7 +54,7 @@ The measures were all collected in the North Sea area *in situ*, roughly between
      * The **heat losses**
      * The **wind**
 * Climate indices : 
-     * The **Nort Atlantic Oscillations** (NAO) index
+     * The **North Atlantic Oscillations** (NAO) index
      * The **Atlantic Multi-decadal Oscillations** (AMO) index
 
 ### Data formatting 
@@ -55,7 +62,7 @@ For consistency and with a view to performing future shifts predictions, we stan
 
 ## Methods comparison
 ### Method 1:
-A Recurrent Neural Network (RNN) composed of a 3 hidden-layers Multi-Layers Perceptron (MLP), taking x(t) = [ Chl ; physics ] (t) as an input, and trained to output x(t+1). 
+A Recurrent Neural Network (RNN) composed of a 3 hidden-layers Multi-Layers Perceptron (MLP), taking x(t) = [ Chl ; physics ] (t) as input, and trained to output x(t+1). 
 
 **NB :** During reconstructions, only the chlorophyll prediction is used and the neural network keeps being fed with the true physics. 
 
@@ -67,9 +74,9 @@ The above RNN is not only trained on the prediction of x(t+1) but {x(t+1), x(t+2
 ![shift](/figures/scheme_MLP_method2.PNG)
 
 ### Method 3:
-In this method, the n previous consecutive states are "seen" by the MLP to allow the n forward states prediction. The input data and the target data are concatenated as [ x(t+1), x(t+2), ... , x(t+n) ].
+In this method, the n previous consecutive states are "seen" by the MLP to allow the n forward states prediction, with n ranging from 1 to 6. The input data and the target data are concatenated as [ x(t+1), x(t+2), ... , x(t+n) ].
 
-![shift](/figures/scheme_MLP_method3.PNG)
+![shift](/figures/scheme_MLP_method3.jpg)
 
 ### Leaderboard
 The methods performances are not all equivalent. You may find below a brief summary:
@@ -83,3 +90,14 @@ The methods performances are not all equivalent. You may find below a brief summ
 
 
 ### Variables strenght assessment
+
+![shift](/figures/variables_strength_assessment.PNG)
+
+**NB**: We may notice that all variables are not always relevant, like the heat losses in the third method. Indeed, when this parameter is being randomized, the model's performances increase. This might be explained by the fact that there is no clear regime shift dennoted in the heat losses dataset between P1 and P2, and thus that it could be misleading for the network. However and rather surprisingly, it seems rather relevant for the other methods. 
+
+## To go further
+### Zooplankton
+As the currents models were not fully able to detect and reconstruct the shift, it was interesting to wonder whether the environmental parameters we used were sufficinent to explain by themselves this change. Thus, adding the zooplankton (which is the natural direct predator of phytplantkon) among the predictors is interesting to compare the results. This has been tested in the notebook `zooplankton`. However, the results were not significantly better. 
+
+### Symmetric reconstruction
+In the frame of our study, we decided to train on the period prior to the shift. Another interesting approach might be to train the network on the period after the shift, and compare the reconstructions. In particular, this would tackle the question whether the physical mecanisms accountable for the phytoplankton evolution are the same before and after the shift.
